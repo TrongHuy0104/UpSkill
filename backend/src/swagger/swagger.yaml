@@ -1,0 +1,454 @@
+openapi: '3.0.0'
+info:
+    title: UpSkill
+    description: Free Open source REST API
+    version: 1.0.0
+    contact:
+        name: Trong Huy
+    license:
+        name: 'Apache 2.0'
+        url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+
+servers:
+    - url: '{serverUrl}/api'
+      variables:
+          serverUrl:
+              description: Environment -  Production, Staging, Test or Dev
+              default: http://localhost:8000
+              enum:
+                  - http://localhost:8000
+
+paths:
+    # Auth
+
+    /auth/signup:
+        post:
+            summary: Register new user
+            tags:
+                - Auth
+            requestBody:
+                required: true
+                content:
+                    multipart/form-data:
+                        schema:
+                            $ref: '#/components/schemas/AuthRequest'
+            responses:
+                '201':
+                    description: Created new user
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    success:
+                                        type: boolean
+                                        example: true
+                                        description:
+                                    error:
+                                        type: boolean
+                                        example: false
+                                    status:
+                                        type: integer
+                                        example: 200
+                                    token:
+                                        type: string
+                                        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NzVmOTJjYzA3ZjY0NTM4NDY3MTI5NCIsImlhdCI6MTczNTc4NDc0OCwiZXhwIjoxNzQzNTYwNzQ4fQ.eWG-pBXxx24AI5SuLv1wSTNkxedqnk85oGeJycu1lk0'
+                                    # message:
+                                    #     type: string
+                                    #     example: Auth Signup is success. An Email with Verification link has been sent to your account ${email} Please Verify Your Email first or use the email verification lik which is been send with the response body to verfiy your email
+                                    data:
+                                        type: object
+                                        properties:
+                                            user:
+                                                type: object
+                                                properties:
+                                                    name:
+                                                        type: string
+                                                        example: 'Nguyen Van A'
+                                                    email:
+                                                        type: 'string'
+                                                        example: 'nguyenvana@gmail.com'
+                                                    role:
+                                                        type: string
+                                                        example: 'user'
+                                                    purchasedCourses:
+                                                        type: array
+                                                        items:
+                                                            type: object
+                                                            '$ref': '#/components/schemas/AuthRequest'
+                                                    uploadedCourses:
+                                                        type: array
+                                                        items:
+                                                            type: object
+                                                            '$ref': '#/components/schemas/AuthRequest'
+
+                '400':
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                '$ref': '#/components/schemas/BadRequestResponse'
+
+                '500':
+                    description: 500 Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                '$ref': '#/components/schemas/ServerErrorResponse'
+
+    /auth/login:
+        post:
+            summary: Login to the system
+            tags:
+                - Auth
+            requestBody:
+                required: true
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                    example: test@gmail.com
+                                password:
+                                    type: string
+                                    example: 12345test
+            responses:
+                '200':
+                    description: Login Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    success:
+                                        type: boolean
+                                        example: true
+                                        description:
+                                    error:
+                                        type: boolean
+                                        example: false
+                                    status:
+                                        type: integer
+                                        example: 200
+                                    token:
+                                        type: string
+                                        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NzVmOTJjYzA3ZjY0NTM4NDY3MTI5NCIsImlhdCI6MTczNTc4NDc0OCwiZXhwIjoxNzQzNTYwNzQ4fQ.eWG-pBXxx24AI5SuLv1wSTNkxedqnk85oGeJycu1lk0'
+                                    # message:
+                                    #     type: string
+                                    #     example: Auth Signup is success. An Email with Verification link has been sent to your account ${email} Please Verify Your Email first or use the email verification lik which is been send with the response body to verfiy your email
+                                    data:
+                                        type: object
+                                        properties:
+                                            user:
+                                                type: object
+                                                properties:
+                                                    name:
+                                                        type: string
+                                                        example: 'Nguyen Van A'
+                                                    email:
+                                                        type: 'string'
+                                                        example: 'nguyenvana@gmail.com'
+                                                    role:
+                                                        type: string
+                                                        example: 'user'
+                                                    purchasedCourses:
+                                                        type: array
+                                                        items:
+                                                            type: object
+                                                            '$ref': '#/components/schemas/AuthRequest'
+                                                    uploadedCourses:
+                                                        type: array
+                                                        items:
+                                                            type: object
+                                                            '$ref': '#/components/schemas/AuthRequest'
+
+                '400':
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                '$ref': '#/components/schemas/BadRequestResponse'
+
+                '500':
+                    description: 500 Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                '$ref': '#/components/schemas/ServerErrorResponse'
+
+    /auth/logout:
+        delete:
+            summary: Un authenticate a user
+            tags:
+                - Auth
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    success:
+                                        type: boolean
+                                        example: true
+                                        description:
+                                    error:
+                                        type: boolean
+                                        example: false
+                                    status:
+                                        type: integer
+                                        example: 200
+                                    message:
+                                        type: string
+                                        example: Auth logout success
+                                    data:
+                                        type: object
+                                        nullable: true
+                                        example: null
+
+                '400':
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                '$ref': '#/components/schemas/BadRequestResponse'
+
+                '500':
+                    description: 500 Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                '$ref': '#/components/schemas/ServerErrorResponse'
+components:
+    schemas:
+        AuthRequest:
+            type: object
+            description: Model containing post request info
+            properties:
+                name:
+                    type: string
+                    example: test
+                email:
+                    type: string
+                    example: test@gmail.com
+                password:
+                    type: string
+                    example: 12345test
+                confirmPassword:
+                    type: string
+                    example: 12345test
+
+        BadRequestResponse:
+            type: object
+            properties:
+                success:
+                    type: boolean
+                    example: false
+                    description:
+                error:
+                    type: boolean
+                    example: true
+                status:
+                    type: integer
+                    example: between 400 - 500
+                message:
+                    type: string
+                    example: Bad request (different message based on request)
+                data:
+                    type: object
+                    nullable: true
+                    example: null
+
+        ServerErrorResponse:
+            type: object
+            properties:
+                success:
+                    type: boolean
+                    example: false
+                    description:
+                error:
+                    type: boolean
+                    example: true
+                status:
+                    type: integer
+                    example: 500
+                message:
+                    type: string
+                    example: Internal Server Error (different message based on request)
+                data:
+                    type: object
+                    nullable: true
+                    example: null
+
+        CourseResponse:
+            type: object
+            description: Model containing course response info
+            properties:
+                title:
+                    type: string
+                    example: title test
+                description:
+                    type: string
+                    example: description test
+                price:
+                    type: number
+                    example: 5000
+                authorId:
+                    type: object
+                    '$ref': '#/components/schemas/UserResponse'
+                categoryId:
+                    type: object
+                    '$ref': '#/components/schemas/CategoryResponse'
+                lessons:
+                    type: array
+                    items:
+                        type: object
+                        '$ref': '#/components/schemas/LessonResponse'
+                averageRating:
+                    type: number
+                    example: 4.6
+
+        UserResponse:
+            type: object
+            description: Model containing user response information
+            properties:
+                name:
+                    type: string
+                    example: name test
+                email:
+                    type: string
+                    example: abc@gmail.com
+                role:
+                    type: string
+                    example: user
+                avatar:
+                    type: string
+                    example: https://image.com
+                purchasedCourses:
+                    type: array
+                    items:
+                        type: object
+                        '$ref': '#/components/schemas/AuthRequest'
+                uploadedCourses:
+                    type: array
+                    items:
+                        type: object
+                        '$ref': '#/components/schemas/AuthRequest'
+
+        CategoryResponse:
+            type: object
+            description: Model containing category response info
+            properties:
+                name:
+                    type: string
+                    example: name test
+                description:
+                    type: string
+                    example: description test
+
+        LessonResponse:
+            type: object
+            description: Model containing lesson response info
+            properties:
+                title:
+                    type: string
+                    example: title test
+                description:
+                    type: string
+                    example: description test
+                videoUrl:
+                    type: string
+                    example: https://video.com
+                materials:
+                    type: array
+                    items:
+                        type: string
+                        example: https://material.com
+                duration:
+                    type: number
+                    example: 600
+                order:
+                    type: number
+                    example: 1
+
+        ProgressResponse:
+            type: object
+            description: Model containing progress response info
+            properties:
+                userId:
+                    type: object
+                    '$ref': '#/components/schemas/UserResponse'
+                courseId:
+                    type: array
+                    items:
+                        type: object
+                        '$ref': '#/components/schemas/CourseResponse'
+                completedLessons:
+                    type: array
+                    items:
+                        type: object
+                        '$ref': '#/components/schemas/LessonResponse'
+
+        TransactionResponse:
+            type: object
+            description: Model containing transaction response info
+            properties:
+                userId:
+                    type: object
+                    '$ref': '#/components/schemas/UserResponse'
+                courseId:
+                    type: array
+                    items:
+                        type: object
+                        '$ref': '#/components/schemas/CourseResponse'
+                amount:
+                    type: number
+                    example: 600
+
+        CartResponse:
+            type: object
+            description: Model containing cart response info
+            properties:
+                userId:
+                    type: object
+                    '$ref': '#/components/schemas/UserResponse'
+                courseId:
+                    type: array
+                    items:
+                        type: object
+                        '$ref': '#/components/schemas/CourseResponse'
+
+        FavoriteResponse:
+            type: object
+            description: Model containing favorite response info
+            properties:
+                userId:
+                    type: object
+                    '$ref': '#/components/schemas/UserResponse'
+                courseId:
+                    type: array
+                    items:
+                        type: object
+                        '$ref': '#/components/schemas/CourseResponse'
+
+        ReviewResponse:
+            type: object
+            description: Model containing review response info
+            properties:
+                userId:
+                    type: object
+                    '$ref': '#/components/schemas/UserResponse'
+                courseId:
+                    type: array
+                    items:
+                        type: object
+                        '$ref': '#/components/schemas/CourseResponse'
+                comment:
+                    type: string
+                    example: comment
+                rating:
+                    type: number
+                    example: 4
