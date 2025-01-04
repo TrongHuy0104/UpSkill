@@ -1,16 +1,14 @@
-
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
 
-# Kiểm tra file thay đổi
+# Check for changed files
 CHANGED_FILES=$(git diff --cached --name-only)
 
 if echo "$CHANGED_FILES" | grep -q "^frontend/"; then
   echo "Running lint-staged for frontend..."
-  (cd frontend && npm run lint-staged")
+  (cd frontend && npm run lint-staged)
 fi
 
 if echo "$CHANGED_FILES" | grep -q "^backend/"; then
   echo "Running lint-staged for backend..."
-  (cd backend && npm run lint-staged")
+  (cd backend && npm run lint-staged)
 fi
