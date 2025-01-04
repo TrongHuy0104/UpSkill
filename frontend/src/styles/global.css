@@ -27,10 +27,6 @@
     h6 {
         @apply text-base font-bold mb-4;
     }
-
-    h7 {
-        @apply text-sm font-bold mb-4;
-    }
 }
 
 @layer components {
