@@ -44,12 +44,12 @@ jobs:
               working-directory: ./frontend
               run: npm run build
 
-            - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
-              with:
-                  path: ./frontend/out
+            # - name: Upload artifact
+            #   uses: actions/upload-pages-artifact@v3
+            #   with:
+            #       path: ./frontend/out
 
-            - name: Deploy to GitHub Pages
-              uses: actions/configure-pages@v5
-              with:
-                  static_site_generator: next
+            # - name: Deploy to GitHub Pages
+            #   uses: actions/configure-pages@v5
+            #   with:
+            #       static_site_generator: next
