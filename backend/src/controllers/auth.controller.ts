@@ -33,8 +33,8 @@ const createSendToken = (user: UserT, statusCode: number, res: Response): void =
     (user as any).password = undefined; // Explicit cast if the password isn't optional in the User type
 
     res.status(statusCode).json({
-        success: 'true',
-        error: 'false',
+        success: true,
+        error: false,
         status: statusCode,
         token,
         data: {
