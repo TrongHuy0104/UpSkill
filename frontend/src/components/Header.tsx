@@ -1,9 +1,9 @@
 // import Link from 'next/link';
 import Link from 'next/link';
-import Category from './Category';
-import Search from './Search';
-import Logo from './ui/Logo';
-import { Button } from './ui/button';
+import Search from '@/components/Search';
+import Logo from '@/components/ui/Logo';
+import { Button } from '@/components/ui/button';
+import Category from '@/components/Category';
 
 export default function Header() {
     return (
