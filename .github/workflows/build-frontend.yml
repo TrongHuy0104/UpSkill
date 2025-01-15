@@ -30,6 +30,14 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
+            - name: Cache node modules
+              uses: actions/cache@v3
+              with:
+                path: ~/.npm
+                key: ${{ runner.os }}-node-modules-${{ hashFiles('frontend/package-lock.json') }}
+                restore-keys: |
+                  ${{ runner.os }}-node-modules-
+
             - name: Install root dependencies and set up Husky
               run: |
                   npm ci
@@ -40,16 +48,21 @@ jobs:
               working-directory: ./frontend
               run: npm ci
 
+            - name: Show directory structure in frontend
+              run: ls -R ./frontend
+
+            - name: Check tsconfig.json in frontend
+              run: cat ./frontend/tsconfig.json
+
+            - name: Show current working directory
+              run: pwd
+
+            - name: Check Node.js version
+              run: node -v
+
+            - name: Clean Next.js build cache
+              run: rm -rf ./frontend/.next
+
             - name: Build with Next.js
               working-directory: ./frontend
               run: npm run build
-
-            # - name: Upload artifact
-            #   uses: actions/upload-pages-artifact@v3
-            #   with:
-            #       path: ./frontend/out
-
-            # - name: Deploy to GitHub Pages
-            #   uses: actions/configure-pages@v5
-            #   with:
-            #       static_site_generator: next

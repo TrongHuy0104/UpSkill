@@ -17,7 +17,6 @@ const signToken = (id: string): string => {
 // Function to create and send a token
 const createSendToken = (user: UserT, statusCode: number, res: Response): void => {
     const token = signToken(user._id);
-
     const cookieOptions = {
         expires: new Date(Date.now() + Number(environmentConfig.JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000),
         httpOnly: true,

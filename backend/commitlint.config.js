@@ -11,3 +11,6 @@ module.exports = { extends: ['@commitlint/config-conventional'] };
 // revert: Reverts a previous commit
 // style: Changes that do not affect the meaning of the code (Eg: adding white-space, formatting, missing semi-colons, etc)
 // test: Adding missing tests or correcting existing tests
+
+// feature/fe-task
+// feature/be-task
