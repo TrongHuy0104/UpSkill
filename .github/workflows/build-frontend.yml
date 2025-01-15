@@ -19,7 +19,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [22.12.0]
+                node-version: [16]  # Adjust Node.js version as needed
 
         steps:
             - name: Checkout source code
@@ -29,6 +29,14 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node-version }}
+
+            - name: Cache node modules
+              uses: actions/cache@v3
+              with:
+                path: ~/.npm
+                key: ${{ runner.os }}-node-modules-${{ hashFiles('frontend/package-lock.json') }}
+                restore-keys: |
+                  ${{ runner.os }}-node-modules-
 
             - name: Install root dependencies and set up Husky
               run: |
@@ -40,16 +48,18 @@ jobs:
               working-directory: ./frontend
               run: npm ci
 
+            - name: Show directory structure
+              run: ls -R ./frontend
+
+            - name: Check tsconfig.json
+              run: cat ./frontend/tsconfig.json
+
+            - name: Show current working directory
+              run: pwd
+
+            - name: Clean Next.js build cache
+              run: rm -rf ./frontend/.next
+
             - name: Build with Next.js
               working-directory: ./frontend
               run: npm run build
-
-            # - name: Upload artifact
-            #   uses: actions/upload-pages-artifact@v3
-            #   with:
-            #       path: ./frontend/out
-
-            # - name: Deploy to GitHub Pages
-            #   uses: actions/configure-pages@v5
-            #   with:
-            #       static_site_generator: next
