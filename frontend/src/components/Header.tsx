@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Search from '@/components/Search';
 import Logo from '@/components/ui/Logo';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import Category from '@/components/Category';
 
 export default function Header() {

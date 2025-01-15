@@ -5,7 +5,7 @@ import { FcGoogle } from 'react-icons/fc';
 
 import { cn } from '@/utils/helpers';
 import FormControl from '@/components/ui/FormControl';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import arrowTopRightIcon from '@/public/assets/icons/arrow-top-right.svg';
 
 const cardo = Cardo({
