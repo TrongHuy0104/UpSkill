@@ -1,14 +1,9 @@
-import Link from 'next/link';
-
 export default function Footer() {
     return (
-        <div className="m-8 text-center">
-            <p>
-                Created by{' '}
-                <Link href="https://nhanluong.dev" className="link">
-                    Nhan Luong
-                </Link>
+        <footer className="relative ml-auto mr-auto px-[14px] max-w-full">
+            <p className="py-[30px] border-t border-primary-100 flex items-center justify-center">
+                © 2025 UpSkill. All Rights Reserved
             </p>
-        </div>
+        </footer>
     );
 }

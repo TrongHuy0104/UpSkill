@@ -9,12 +9,12 @@ module.exports = {
         'plugin:react/jsx-runtime'
     ],
     rules: {
-        //     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
-        //     'react/jsx-one-expression-per-line': 'off',
         'react/jsx-indent-props': ['error', 'first'], // Optionally, set how props should be indented
         'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.tsx'] }],
         'react/jsx-indent': 'off',
+        'react/jsx-props-no-spreading': 'off',
         'react/jsx-one-expression-per-line': 'off',
+        'react/require-default-props': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         'arrow-parens': 'off',
         'class-methods-use-this': 'off',
@@ -35,7 +35,7 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-multiple-empty-lines': 'off',
         'no-prototype-builtins': 'off',
-        'no-trailing-spaces': ['error', { ignoreComments: true, skipBlankLines: true }],
+        'no-trailing-spaces': 'off',
         'no-underscore-dangle': 'off',
         'padded-blocks': ['error', 'never'],
         'object-curly-newline': 'off',
@@ -43,6 +43,10 @@ module.exports = {
         'require-jsdoc': 'off',
         semi: 'error',
         'space-in-parens': 'off',
-        'prettier/prettier': 0
+        'prettier/prettier': 0,
+        camelcase: 'off',
+        'jsx-a11y/control-has-associated-label': 'off',
+        'import/prefer-default-export': 'off',
+        'quote-props': 'off'
     }
 };
