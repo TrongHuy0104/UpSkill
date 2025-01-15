@@ -19,7 +19,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [16]  # Adjust Node.js version as needed
+                node-version: [22.12.0]
 
         steps:
             - name: Checkout source code
@@ -48,14 +48,17 @@ jobs:
               working-directory: ./frontend
               run: npm ci
 
-            - name: Show directory structure
+            - name: Show directory structure in frontend
               run: ls -R ./frontend
 
-            - name: Check tsconfig.json
+            - name: Check tsconfig.json in frontend
               run: cat ./frontend/tsconfig.json
 
             - name: Show current working directory
               run: pwd
+
+            - name: Check Node.js version
+              run: node -v
 
             - name: Clean Next.js build cache
               run: rm -rf ./frontend/.next
