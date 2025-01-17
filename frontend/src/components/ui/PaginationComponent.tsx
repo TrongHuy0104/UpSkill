@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
     Pagination,
     PaginationContent,
@@ -12,17 +13,20 @@ interface PaginationProps {
     currentPage: number;
     totalPages: number;
     // eslint-disable-next-line no-unused-vars
-    onPageChange: (pageNumber: number) => void; 
-  }
+    onPageChange: (pageNumber: number) => void;
+}
 
 function PaginationComponent({ currentPage, totalPages, onPageChange }: PaginationProps) {
-    const createPageNumbers = (): (number | string)[] => {
+    if (totalPages < 1 || currentPage < 1 || currentPage > totalPages) {
+        throw new Error('Invalid currentPage or totalPages');
+    }
+    const pageNumbers = useMemo(() => {
         const pages: (number | string)[] = [];
         for (let i = 1; i <= totalPages; i += 1) {
             if (
-                i === 1
-        || i === totalPages
-        || (i >= currentPage - 1 && i <= currentPage + 1)
+                i === 1 
+                || i === totalPages 
+                || (i >= currentPage - 1 && i <= currentPage + 1)
             ) {
                 pages.push(i);
             } else if (
@@ -35,7 +39,7 @@ function PaginationComponent({ currentPage, totalPages, onPageChange }: Paginati
             }
         }
         return pages;
-    };
+    }, [currentPage, totalPages]);
 
     const handlePageChange = (page: number): void => {
         if (page !== currentPage && page >= 1 && page <= totalPages) {
@@ -45,6 +49,7 @@ function PaginationComponent({ currentPage, totalPages, onPageChange }: Paginati
 
     return (
         <Pagination>
+            {/* Previous Button */}
             <PaginationPrevious>
                 <button
                     type="button"
@@ -53,22 +58,23 @@ function PaginationComponent({ currentPage, totalPages, onPageChange }: Paginati
                     className="px-4 py-2 text-sm bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
                     aria-label="Previous page"
                 >
-                &lt; Prev
+                    &lt; Prev
                 </button>
             </PaginationPrevious>
 
+            {/* Main Pagination */}
             <PaginationContent>
-                {createPageNumbers().map((page) => {
+                {pageNumbers.map((page, idx) => {
                     if (page === '...') {
+                        const uniqueKey = `ellipsis-${currentPage}-${idx}`;
                         return (
-                            <PaginationEllipsis key={`ellipsis-${currentPage}-${Math.random()}`}>
+                            <PaginationEllipsis key={uniqueKey}>
                                 <span className="px-4 py-2" aria-hidden="true">
-                                  ...
+                                    ...
                                 </span>
                             </PaginationEllipsis>
                         );
                     }
-
                     return (
                         <PaginationItem key={`page-${page}`}>
                             <PaginationLink>
@@ -91,6 +97,7 @@ function PaginationComponent({ currentPage, totalPages, onPageChange }: Paginati
                 })}
             </PaginationContent>
 
+            {/* Nút Next */}
             <PaginationNext>
                 <button
                     type="button"
@@ -99,7 +106,7 @@ function PaginationComponent({ currentPage, totalPages, onPageChange }: Paginati
                     className="px-4 py-2 text-sm bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
                     aria-label="Next page"
                 >
-                  Next &gt;
+                    Next &gt;
                 </button>
             </PaginationNext>
         </Pagination>
