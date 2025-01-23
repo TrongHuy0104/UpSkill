@@ -6,6 +6,7 @@ import img from '@/public/assets/images/courses/courses-01.jpg';
 import timeTable from '@/public/assets/icons/timetable.svg';
 import hour from '@/public/assets/icons/hour.svg';
 import { cn } from '@/utils/helpers';
+import CourseInfoItem from '@/components/ui/CourseInfoItem';
 
 const dmSans = DM_Sans({ subsets: ['latin'] });
 
@@ -66,20 +67,9 @@ export default function CourseCardHorizontal() {
                 </div>
                 <div className={cn(dmSans.className, 'pb-[10px] ml-3')}>
                     <div className="flex mb-[6px] gap-[20px]">
-                        <div className="flex items-center gap-[10px]">
-                            <Image src={timeTable} alt=" timeTable" />
-                            <p className="font-normal text-[12px] leading-7 text-[#585d69]">11 Lessons</p>
-                            <span className="text-[#e4e4e7] after:top-[-9px]">|</span>
-                        </div>
-                        <div className="flex items-center gap-[10px]">
-                            <Image src={hour} alt=" hour" />
-                            <p className="font-normal text-[12px] leading-7 text-[#585d69] ">229 students</p>
-                            <span className="text-[#e4e4e7] after:top-[-9px]">|</span>
-                        </div>
-                        <div className="flex items-center gap-[10px]">
-                            <Image src={hour} alt=" hour" />
-                            <p className="font-normal text-[12px] leading-7 text-[#585d69] ">16 hours</p>
-                        </div>
+                        <CourseInfoItem icon={timeTable} text="11 Lessons" />
+                        <CourseInfoItem icon={hour} text="229 students" />
+                        <CourseInfoItem icon={hour} text="16 hours" />
                     </div>
                     <h5 className="relative mb-[2px] overflow-hidden text-[16px] font-medium leading-7 hover:text-accent-900 hover:cursor-pointer">
                         The Complete 2024 Web Development Bootcamp

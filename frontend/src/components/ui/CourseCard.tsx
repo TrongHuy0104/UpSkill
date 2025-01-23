@@ -7,6 +7,7 @@ import img from '@/public/assets/images/courses/courses-01.jpg';
 import timeTable from '@/public/assets/icons/timetable.svg';
 import hour from '@/public/assets/icons/hour.svg';
 import { cn } from '@/utils/helpers';
+import CourseInfoItem from './CourseInfoItem';
 
 const dmSans = DM_Sans({ subsets: ['latin'] });
 
@@ -67,15 +68,8 @@ export default function CourseCard() {
                 </div>
                 <div className={cn(dmSans.className, 'pt-[10px] pb-[10px] border-b-[1px] border-gray-200')}>
                     <div className="flex mb-[6px] gap-[20px]">
-                        <div className="flex items-center gap-[10px]">
-                            <Image src={timeTable} alt=" timeTable" />
-                            <p className="font-normal text-sm leading-7 text-[#585d69]">11 Lessons</p>
-                            <span className="text-[#e4e4e7] after:top-[-9px]">|</span>
-                        </div>
-                        <div className="flex items-center gap-[10px]">
-                            <Image src={hour} alt=" hour" />
-                            <p className="font-normal text-sm leading-7 text-[#585d69] ">16 hours</p>
-                        </div>
+                        <CourseInfoItem icon={timeTable} text="11 Lessons" />
+                        <CourseInfoItem icon={hour} text="16 hours" />
                     </div>
                     <h5
                         className="relative mb-[2px] overflow-hidden text-[16px] font-medium bg-no-repeat bg-gradient-to-r from-transparent to-current 
