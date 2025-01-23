@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { DM_Sans } from 'next/font/google';
 import { IoMdStar } from 'react-icons/io';
-import { GoArrowUpRight } from 'react-icons/go';
 import Link from 'next/link';
 import img from '@/public/assets/images/courses/courses-01.jpg';
 import timeTable from '@/public/assets/icons/timetable.svg';
@@ -10,11 +9,11 @@ import { cn } from '@/utils/helpers';
 
 const dmSans = DM_Sans({ subsets: ['latin'] });
 
-export default function CourseCard() {
+export default function CourseCardHorizontal() {
     return (
-        <div className="w-[315.435px] mr-[25px]">
-            <div className="group">
-                <div className="relative w-full h-full overflow-hidden">
+        <div className="w-[1071px] h-[230px] mr-[25px]">
+            <div className="group flex ">
+                <div className="relative w-1/3 h-full overflow-hidden">
                     <div className="group w-full h-full overflow-hidden rounded-md">
                         <Image
                             className="w-full h-full object-cover transition duration-1000 group-hover:scale-125"
@@ -65,26 +64,31 @@ export default function CourseCard() {
                         </svg>
                     </div>
                 </div>
-                <div className={cn(dmSans.className, 'pt-[10px] pb-[10px] border-b-[1px] border-gray-200')}>
+                <div className={cn(dmSans.className, 'pb-[10px] ml-3')}>
                     <div className="flex mb-[6px] gap-[20px]">
                         <div className="flex items-center gap-[10px]">
                             <Image src={timeTable} alt=" timeTable" />
-                            <p className="font-normal text-sm leading-7 text-[#585d69]">11 Lessons</p>
+                            <p className="font-normal text-[12px] leading-7 text-[#585d69]">11 Lessons</p>
                             <span className="text-[#e4e4e7] after:top-[-9px]">|</span>
                         </div>
                         <div className="flex items-center gap-[10px]">
                             <Image src={hour} alt=" hour" />
-                            <p className="font-normal text-sm leading-7 text-[#585d69] ">16 hours</p>
+                            <p className="font-normal text-[12px] leading-7 text-[#585d69] ">229 students</p>
+                            <span className="text-[#e4e4e7] after:top-[-9px]">|</span>
+                        </div>
+                        <div className="flex items-center gap-[10px]">
+                            <Image src={hour} alt=" hour" />
+                            <p className="font-normal text-[12px] leading-7 text-[#585d69] ">16 hours</p>
                         </div>
                     </div>
-                    <h5
-                        className="relative mb-[2px] overflow-hidden text-[16px] font-medium bg-no-repeat bg-gradient-to-r from-transparent to-current 
-    [background-size:0_1px] [background-position-y:100%] transition-all duration-300 ease-in-out 
-    hover:[background-size:100%_1px] "
-                    >
-                        Become a Certified Web Developer: HTML, CSS and JavaScript
+                    <h5 className="relative mb-[2px] overflow-hidden text-[16px] font-medium leading-7 hover:text-accent-900 hover:cursor-pointer">
+                        The Complete 2024 Web Development Bootcamp
                     </h5>
-                    <div className="pt-[10px] mb-[2px] flex gap-2 items-center">
+                    <h6 className="text-[12px] mb-[10px]">
+                        Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React,
+                        PostgreSQL, Web3 and DApps
+                    </h6>
+                    <div className="pt-[10px] mb-[10px] flex gap-2 items-center">
                         <div className="text-sm font-normal">4.9</div>
                         <IoMdStar />
                         <IoMdStar />
@@ -100,14 +104,15 @@ export default function CourseCard() {
                             Carolyn Welbon
                         </Link>
                     </div>
+                    <div className="bg-[#eceba2] border rounded-md w-[100px] h-[30px] flex justify-center items-center text-center text-[14px]">
+                        <Link href="#/" className="">
+                            Best Seller
+                        </Link>
+                    </div>
                 </div>
-                <div className="bottom pt-[20px]">
+                <div className="bottom">
                     <div className="font-bold text-[16px] flex justify-between">
                         <span className="text-[#e27447]">$89.29</span>
-                        <Link href="#/" className="flex font-medium leading-7 hover:text-accent-900 gap-2">
-                            Errol course
-                            <GoArrowUpRight className="mt-[6px]" />
-                        </Link>
                     </div>
                 </div>
             </div>
