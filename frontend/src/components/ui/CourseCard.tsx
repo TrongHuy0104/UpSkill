@@ -12,7 +12,7 @@ import CourseInfoItem from './CourseInfoItem';
 const dmSans = DM_Sans({ subsets: ['latin'] });
 
 interface CourseCardProps {
-    isHorizontal?: boolean;
+    readonly isHorizontal?: boolean;
 }
 
 export default function CourseCard({ isHorizontal }: CourseCardProps) {
