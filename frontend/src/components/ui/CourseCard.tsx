@@ -11,11 +11,15 @@ import CourseInfoItem from './CourseInfoItem';
 
 const dmSans = DM_Sans({ subsets: ['latin'] });
 
-export default function CourseCard() {
+interface CourseCardProps {
+    isHorizontal?: boolean;
+}
+
+export default function CourseCard({ isHorizontal }: CourseCardProps) {
     return (
-        <div className="w-[315.435px] mr-[25px]">
-            <div className="group">
-                <div className="relative w-full h-full overflow-hidden">
+        <div className={cn(isHorizontal ? 'w-[1071px] mr-[25px]' : 'w-[300px] mr-[25px]')}>
+            <div className={cn('group flex', isHorizontal ? 'flex-row' : 'flex-col')}>
+                <div className={cn('relative overflow-hidden', isHorizontal ? 'w-1/3 h-full' : 'w-full h-[200px]')}>
                     <div className="group w-full h-full overflow-hidden rounded-md">
                         <Image
                             className="w-full h-full object-cover transition duration-1000 group-hover:scale-125"
@@ -66,18 +70,21 @@ export default function CourseCard() {
                         </svg>
                     </div>
                 </div>
-                <div className={cn(dmSans.className, 'pt-[10px] pb-[10px] border-b-[1px] border-gray-200')}>
+                <div className={cn(dmSans.className, isHorizontal ? 'ml-3 pb-[10px]' : 'mt-3')}>
                     <div className="flex mb-[6px] gap-[20px]">
                         <CourseInfoItem icon={timeTable} text="11 Lessons" />
-                        <CourseInfoItem icon={hour} text="16 hours" />
+                        {isHorizontal && <CourseInfoItem icon={hour} text="229 students" />}
+                        <CourseInfoItem icon={hour} text="16 hours" isLast />
                     </div>
-                    <h5
-                        className="relative mb-[2px] overflow-hidden text-[16px] font-medium bg-no-repeat bg-gradient-to-r from-transparent to-current 
-    [background-size:0_1px] [background-position-y:100%] transition-all duration-300 ease-in-out 
-    hover:[background-size:100%_1px] "
-                    >
+                    <h5 className="relative mb-[2px] overflow-hidden text-[16px] font-medium leading-7 hover:text-accent-900 hover:cursor-pointer">
                         Become a Certified Web Developer: HTML, CSS and JavaScript
                     </h5>
+                    {isHorizontal && (
+                        <h6 className="text-[12px] mb-[10px]">
+                            Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React,
+                            PostgreSQL, Web3 and DApps
+                        </h6>
+                    )}
                     <div className="pt-[10px] mb-[2px] flex gap-2 items-center">
                         <div className="text-sm font-normal">4.9</div>
                         <IoMdStar />
@@ -94,14 +101,23 @@ export default function CourseCard() {
                             Carolyn Welbon
                         </Link>
                     </div>
+                    {isHorizontal && (
+                        <div className="bg-[#eceba2] border rounded-md w-[100px] h-[30px] flex justify-center items-center text-center text-[14px]">
+                            <Link href="#/" className="">
+                                Best Seller
+                            </Link>
+                        </div>
+                    )}
                 </div>
-                <div className="bottom pt-[20px]">
+                <div className={cn(isHorizontal ? 'bottom' : 'bottom pt-[20px]')}>
                     <div className="font-bold text-[16px] flex justify-between">
                         <span className="text-[#e27447]">$89.29</span>
-                        <Link href="#/" className="flex font-medium leading-7 hover:text-accent-900 gap-2">
-                            Errol course
-                            <GoArrowUpRight className="mt-[6px]" />
-                        </Link>
+                        {!isHorizontal && (
+                            <Link href="#/" className="flex font-medium leading-7 hover:text-accent-900 gap-2">
+                                Errol course
+                                <GoArrowUpRight className="mt-[6px]" />
+                            </Link>
+                        )}
                     </div>
                 </div>
             </div>
