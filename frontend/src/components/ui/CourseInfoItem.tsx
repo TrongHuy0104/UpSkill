@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
 interface CourseInfoItemProps {
-    icon: string;
-    text: string;
+    readonly icon: string;
+    readonly text: string;
     readonly isLast?: boolean;
 }
 export default function CourseInfoItem({ icon, text, isLast }: CourseInfoItemProps) {
